@@ -26,3 +26,7 @@ yarn-error.log*
 /firebase
 .firebaserc
 firebase.json
+
+
+# my personal data
+/marketing
