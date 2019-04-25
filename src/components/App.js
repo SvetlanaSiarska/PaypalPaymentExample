@@ -1,7 +1,7 @@
 import React from 'react'
 import { Router, Route} from 'react-router-dom'
 
-import ShopingCart from './ShopingCart'
+import ShoppingCart from './ShoppingCart'
 import Products from './Products'
 import PaymentInfo from './PaymentInfo'
 import Footer from './Footer'
@@ -16,7 +16,7 @@ const App = () => {
                     <Navigation/>
                     <div>
                         <Route path="/" exact component={Products} />
-                        <Route path="/shopingCart"  component={ShopingCart} />
+                        <Route path="/shoppingCart"  component={ShoppingCart} />
                         <Route path="/paymentinfo"  component={PaymentInfo} />
                         <Route path="/productdetail/:id"  component={ProductDetailModal} />
                     </div>

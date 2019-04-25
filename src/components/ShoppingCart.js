@@ -6,10 +6,10 @@ import ModifyProductAmountInCart from '../actions/ModifyProductAmountInCart'
 import ModifyProductSizeInCart from '../actions/ModifyProductSizeInCart'
 import AddPayment from '../actions/AddPayment'
 import { SIZE_S, SIZE_M, SIZE_L, SIZE_XL}  from '../actions/types'
-import { getSizeText } from '../helpers/'
+import { getSizeText } from '../helpers'
 
 
-class ShopingCart extends Component {
+class ShoppingCart extends Component {
 
     addProduct(productInfo) {
        productInfo.amount = productInfo.amount +1;
@@ -209,5 +209,5 @@ const mapStateToProps = (state) => {
   export default connect(mapStateToProps, 
         {   ModifyProductAmountInCart,
             ModifyProductSizeInCart,
-            AddPayment})(ShopingCart);
+            AddPayment})(ShoppingCart);
 

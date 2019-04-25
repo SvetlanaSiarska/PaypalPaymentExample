@@ -60,7 +60,7 @@ class Navigation extends Component  {
                 <div className="ui text container">
                     {this.renderLogo()}                   
                     <Link className="item" to="/">Products</Link>
-                    <Link className="item" to="/shopingCart">Shopping Cart
+                    <Link className="item" to="/shoppingCart">Shopping Cart
                         {this.renderFloatingLabel()}
                     </Link>               
                 </div>
