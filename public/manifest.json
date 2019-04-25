@@ -1,6 +1,6 @@
 {
-  "short_name": "React App - Paypal Payment",
-  "name": "Create React App Sample",
+  "short_name": "Simple Demo Onlineshop",
+  "name": "Simple Demo Onlineshop - React App (Redux, Semantic UI, Paypal Checkout)",
   "icons": [
     {
       "src": "favicon.ico",
