@@ -183,7 +183,7 @@ class ShopingCart extends Component {
         } 
         if(cartItemsCount===0)
             return (
-                <div class=" right aligned">
+                <div className=" right aligned">
                     <p>No products in shoping cart!</p>
                 </div>
 
