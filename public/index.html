@@ -19,11 +19,176 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"/>
+
+    <script src="https://semantic-ui.com/examples/assets/library/jquery.min.js"></script>
+    <script src="https://semantic-ui.com/dist/components/transition.js"></script>
+    <script src="https://semantic-ui.com/dist/components/dropdown.js"></script>
+    <script src="https://semantic-ui.com/dist/components/visibility.js"></script>
+    <script>
+      $(document)
+        .ready(function() {
+    
+          // fix main menu to page on passing
+          $('.main.menu').visibility({
+            type: 'fixed'
+          });
+        
+          $('.overlay').visibility({
+            type: 'fixed',
+            offset: 80
+          });
+    
+          // lazy load images
+          $('.image').visibility({
+            type: 'image',
+            transition: 'vertical flip in',
+            duration: 500
+          });
+    
+          // show dropdown on hover
+          $('.main.menu  .ui.dropdown').dropdown({
+            on: 'hover'
+          });
+        })
+      ;
+      </script>
+ 
+    <!-- 
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
+    <script
+    src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+    -->
+
+
+    <style type="text/css">
+      
+      /* Semantic UI has these classes, however they're only applicable to*/
+      /* grids, containers, rows and columns.*/
+      /* plus, there isn't any `mobile hidden`, `X hidden` class.*/
+      /* this snippet is using the same class names and same approach*/
+      /* plus a bit more but to all elements.*/
+      /* see https://github.com/Semantic-Org/Semantic-UI/issues/1114*/
+
+      /* Mobile */
+      @media only screen and (max-width: 767px) {
+        [class*="mobile hidden"],
+        [class*="tablet only"]:not(.mobile),
+        [class*="computer only"]:not(.mobile),
+        [class*="large screen only"]:not(.mobile),
+        [class*="widescreen only"]:not(.mobile),
+        [class*="or lower hidden"] {
+          display: none !important;
+        }
+      }
+
+      /* Tablet / iPad Portrait */
+      @media only screen and (min-width: 768px) and (max-width: 991px) {
+        [class*="mobile only"]:not(.tablet),
+        [class*="tablet hidden"],
+        [class*="computer only"]:not(.tablet),
+        [class*="large screen only"]:not(.tablet),
+        [class*="widescreen only"]:not(.tablet),
+        [class*="or lower hidden"]:not(.mobile) {
+          display: none !important;
+        }
+      }
+
+      /* Computer / Desktop / iPad Landscape */
+      @media only screen and (min-width: 992px) and (max-width: 1199px) {
+        [class*="mobile only"]:not(.computer),
+        [class*="tablet only"]:not(.computer),
+        [class*="computer hidden"],
+        [class*="large screen only"]:not(.computer),
+        [class*="widescreen only"]:not(.computer),
+        [class*="or lower hidden"]:not(.tablet):not(.mobile) {
+          display: none !important;
+        }
+      }
+
+      /* Large Monitor */
+      @media only screen and (min-width: 1200px) and (max-width: 1919px) {
+        [class*="mobile only"]:not([class*="large screen"]),
+        [class*="tablet only"]:not([class*="large screen"]),
+        [class*="computer only"]:not([class*="large screen"]),
+        [class*="large screen hidden"],
+        [class*="widescreen only"]:not([class*="large screen"]),
+        [class*="or lower hidden"]:not(.computer):not(.tablet):not(.mobile) {
+          display: none !important;
+        }
+      }
+
+      /* Widescreen Monitor */
+      @media only screen and (min-width: 1920px) {
+        [class*="mobile only"]:not([class*="widescreen"]),
+        [class*="tablet only"]:not([class*="widescreen"]),
+        [class*="computer only"]:not([class*="widescreen"]),
+        [class*="large screen only"]:not([class*="widescreen"]),
+        [class*="widescreen hidden"],
+        [class*="widescreen or lower hidden"] {
+          display: none !important;
+        }
+      }
+      footer {
+        width: 100%;        
+        padding-top: 20px;
+        padding-bottom: 0px;
+        margin-top: 100;
+        margin-bottom: 0;
+      }
+
+      footer p {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        color: #777777;
+      }
+
+      body {
+        background-color: #FFFFFF;
+        -webkit-font-smoothing: antialiased;
+        -moz-font-smoothing: grayscale;
+      }
+      .main.container {
+        margin-top: 2em;
+      }
+
+    .main.menu {
+      margin-top: 4em;
+      border-radius: 0;
+      border: none;
+      box-shadow: none;
+      transition:
+        box-shadow 0.5s ease,
+        padding 0.5s ease
+      ;
+    }
+    .main.menu .item img.logo {
+      margin-right: 1.5em;
+    }
+
+  
+  .main.menu.fixed {
+    background-color: black;
+    border: 1px solid #DDD;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+  }
+
+    .pricetag  {
+      padding-left: 20px !important;
+      margin-left: 30px !important;
+    }
+    </style>
+
+    <title>React App - Paypal Payment</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    
     <div id="root"></div>
+    <div id="modal"></div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
@@ -34,5 +199,7 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    
+    
   </body>
 </html>
