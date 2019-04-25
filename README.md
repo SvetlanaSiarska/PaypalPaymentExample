@@ -1,3 +1,10 @@
+ 1. [DEMO APP](https://pp-example.firebaseapp.com/)
+ 2. Create your [developer paypal account](https://developer.paypal.com/docs/classic/lifecycle/sb_create-accounts/#create-a-sandbox-account) and change the Sandbox/Production Client ID in src/components/ShoppingCart.js
+ 3. Let's run npm start ....
+ 
+ --------------------------------
+ 
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
