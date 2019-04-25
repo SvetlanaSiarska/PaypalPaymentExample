@@ -1,4 +1,4 @@
- 1. [DEMO APP](https://pp-example.firebaseapp.com/)
+ 1. [DEMO APP](https://pp-example.firebaseapp.com/) -  Simple Shopping React App (Semantic UI, Redux) with PayPal Checkout.
  2. Create your [developer paypal account](https://developer.paypal.com/docs/classic/lifecycle/sb_create-accounts/#create-a-sandbox-account) and change the Sandbox/Production Client ID in src/components/ShoppingCart.js
  3. Let's run npm start ....
  
