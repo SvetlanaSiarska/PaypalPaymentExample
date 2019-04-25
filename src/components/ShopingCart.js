@@ -68,12 +68,10 @@ class ShopingCart extends Component {
         }
     
         let env = 'sandbox'; // you can set here to 'production' for production
-        //let currency = 'CHF'; // or you can set this value from your props or state
-        //let total = 30; // same as above, this is the total amount (based on currency) to be paid by using Paypal express checkout
         // Document on Paypal's currency code: https://developer.paypal.com/docs/classic/api/currency_codes/
     
         const client = {
-            sandbox:    'ARyaKlBmQUvMg7pXWu_8hKp8fWY8Ns7HMcpWCJwEnJuSC0HP9Ho_zJw73Ytt1CR96q6GclJTUz-dW8Ik',
+            sandbox: 'ARyaKlBmQUvMg7pXWu_8hKp8fWY8Ns7HMcpWCJwEnJuSC0HP9Ho_zJw73Ytt1CR96q6GclJTUz-dW8Ik',
             production: 'YOUR-PRODUCTION-APP-ID',
         }
 
