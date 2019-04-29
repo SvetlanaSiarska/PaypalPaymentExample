@@ -123,7 +123,7 @@ const mapStateToProps = (state) => {
   
     return {
       products: state.products,
-      productsPayment: state.shoppingCart.productsPayment,
+      productsPayment: state.payment.products,
       data: state.payment.data,
       info: state.payment.info
     }

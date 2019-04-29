@@ -11,17 +11,16 @@ import Navigation from './Navigation'
 
 const App = () => {
     return (
-        <React.Fragment >                        
+        <React.Fragment >  
                 <Router history={history}>                     
-                    <Navigation/>
+                    <Navigation data-test="navigation"/>
                     <div>
                         <Route path="/" exact component={Products} />
                         <Route path="/shoppingCart"  component={ShoppingCart} />
                         <Route path="/paymentinfo"  component={PaymentInfo} />
                         <Route path="/productdetail/:id"  component={ProductDetailModal} />
                     </div>
-                </Router>
-           
+                </Router>           
             <Footer/>
         </React.Fragment>
     );

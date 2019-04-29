@@ -72,7 +72,7 @@ class Navigation extends Component  {
 const mapStateToProps = (state) => {
     
     return {
-        productsCart: state.shoppingCart.products
+        productsCart: state.shoppingCart
     }
   }
 export default connect(mapStateToProps)(Navigation);

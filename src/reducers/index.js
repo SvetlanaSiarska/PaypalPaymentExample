@@ -5,7 +5,9 @@ import { ADD_PRODUCT_TO_CART,
         MODIFY_PRODUCT_AMOUNT_IN_CART,
         MODIFY_PRODUCT_SIZE_IN_CART,
         ADD_PAYMENT_INFO,
-        REFRESH_ADD_BUTTON
+        REFRESH_ADD_BUTTON,
+        CLEAR_CART,
+        CLEAR_PAYMENT_INFO
      } from '../actions/types'
 
 
@@ -22,14 +24,19 @@ const productReducer = () => {
 const INITIAL_STATE_PAYMENT = {
     data: null,
     info: "",
+    products: [],    
 };
 
 const paymentReducer = (state=INITIAL_STATE_PAYMENT, action) => {    
     switch(action.type) {
+        case CLEAR_PAYMENT_INFO:
+            state=INITIAL_STATE_PAYMENT;
+            return {...state};
         case ADD_PAYMENT_INFO:
             const data = action.payload.payment;
             const info = action.payload.info;
-            return {...state, data, info};
+            const products = action.payload.products;
+            return {...state, data, info, products};
         default:
             return {...state};
     }
@@ -60,84 +67,80 @@ const selectedProductReducer = (state=INITIAL_STATE, action) => {
         case ADD_PRODUCT_TO_CART:
             productAdded = true;
             productAddedID = action.payload.id; 
-            return {...state, productAdded, productAddedID};        
+            return {...state, productAdded, productAddedID};   
+        case CLEAR_CART:           
+            return {...state, selectedProduct: null, sizes: []};  
         default: 
             return {...state};
     }
 }
 
-const INITIAL_STATE_CART = {   
-    products: [],
-    productsPayment: [], 
-};
 
-const shoppingCartReducer = (state=INITIAL_STATE_CART, action) => {
-    let size, id, itemExists, productInfo, products;
+const shoppingCartReducer = (products=[], action) => {
+    let size, id, itemExists, productInfo, updatedProducts;
 
-    switch(action.type) {
-        case ADD_PAYMENT_INFO:
-            const productsPayment = [...state.products];           
-            return {...state, productsPayment, products:[]}         
-        case ADD_PRODUCT_TO_CART:
-            
+    switch(action.type) {               
+        case CLEAR_CART:           
+            return []; 
+        case ADD_PRODUCT_TO_CART:            
             id = action.payload.id;
             size = action.payload.size;           
-            itemExists = state.products.filter((item)=> item.id===id && item.size===size);
+            itemExists = products.filter((item)=> item.id===id && item.size===size);
             if (itemExists.length===1) {
-                products= state.products
+                updatedProducts= products
                     .map((item)=> 
                     item.id===itemExists[0].id && item.size===itemExists[0].size ? 
                         {id:item.id, size:item.size, amount:(itemExists[0].amount+1)}: 
                         {id:item.id, size:item.size, amount:item.amount});
 
             } else {
-                products = [...state.products]
-                products.push({id, size, amount:1}); 
+                updatedProducts = [...products]
+                updatedProducts.push({id, size, amount:1}); 
             }                
-            return {...state, products};
+            return updatedProducts;
         case MODIFY_PRODUCT_SIZE_IN_CART:
             productInfo = action.payload.productInfo;
             const newSize = action.payload.newSize;
-            itemExists = state.products.filter(
+            itemExists = products.filter(
                 (item)=> item.id===productInfo.id && item.size===newSize);
             if(itemExists.length>0) {
-                products = state.products
+                updatedProducts = products
                     .map((item)=> 
                     item.id===itemExists[0].id && item.size===itemExists[0].size ? 
                         {id:item.id, size:item.size, amount:item.amount + productInfo.amount}: 
                         {id:item.id, size:item.size, amount:item.amount});
-                products = products
+                        updatedProducts = products
                         .filter((item)=> 
                         !(item.id===productInfo.id && item.size===productInfo.size));
                            
             } else {
-                products = state.products
+                updatedProducts = products
                     .map((item)=> 
                     item.id===productInfo.id && item.size===productInfo.size ? 
                         {id:item.id, size:newSize, amount:item.amount }: 
                         {id:item.id, size:item.size, amount:item.amount});
             }
-            return {...state, products};
+            return updatedProducts;
         case MODIFY_PRODUCT_AMOUNT_IN_CART:
             productInfo = action.payload;
-            itemExists = state.products.filter(
+            itemExists = products.filter(
                 (item)=> item.id===productInfo.id && item.size===productInfo.size);
             if (itemExists.length===1) {
                 if( productInfo.amount>0) {
-                    products = state.products
+                    updatedProducts = products
                     .map((item)=> 
                     item.id===itemExists[0].id && item.size===itemExists[0].size ? 
                         {id:item.id, size:item.size, amount:productInfo.amount}: 
                         {id:item.id, size:item.size, amount:item.amount});
                 } else {
-                    products = state.products
+                    updatedProducts = products
                     .filter((item)=> 
                      !(item.id===itemExists[0].id && item.size===itemExists[0].size ));                    
                 }     
             }
-            return {...state, products};
+            return updatedProducts;
         default: 
-            return {...state};
+            return products;
     }
 }
 

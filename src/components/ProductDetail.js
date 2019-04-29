@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 
-import { AddProductToCart, RefreshAddButton}  from '../actions/AddProductToCart'
+import { AddProductToCart }  from '../actions/AddProductToCart'
 import SelectProductDetailSize  from '../actions/SelectProductDetailSize'
 import { SIZE_S, SIZE_M, SIZE_L, SIZE_XL}  from '../actions/types'
 import { getSizeText } from '../helpers/'
@@ -18,9 +18,10 @@ class ProductDetail extends Component  {
             productSize.id === this.props.id );
         if(sizeSelected.length===1) {
             this.props.AddProductToCart(this.props.id, sizeSelected[0].size);
-            setTimeout(() => {
+            /*setTimeout(() => {
                 this.props.RefreshAddButton();    
               }, 3000);  
+              */
         }        
     }
     changeSize(e) {
@@ -115,6 +116,5 @@ const mapStateToProps = (state) => {
     }
   }
 export default connect(mapStateToProps, 
-    {   AddProductToCart, 
-        RefreshAddButton,
+    {   AddProductToCart,
         SelectProductDetailSize})(ProductDetail);

@@ -203,7 +203,7 @@ const mapStateToProps = (state) => {
   
     return {
       products: state.products,
-      productsCart: state.shoppingCart.products
+      productsCart: state.shoppingCart
     }
   }
   export default connect(mapStateToProps, 
