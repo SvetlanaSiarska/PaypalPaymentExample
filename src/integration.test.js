@@ -1,69 +1,75 @@
 import { storeFactory } from '../test/testUtils';
-import { guessWord } from './actions';
+import { AddProductToCart } from './actions/AddProductToCart';
+import { SIZE_S } from './actions/types';
 
-describe('guessWord action dispatcher', () => {
-  const secretWord = 'party';
-  const unsuccessfulGuess = 'train';
-  describe('no guessed words', () => {
+
+describe('AddProductToCart action dispatcher', () => {
     let store;
-    const initialState = { secretWord };
+    let initialState = {};
+  
     beforeEach(() => {
-      store = storeFactory(initialState);
+        store = storeFactory(initialState);
+        initialState = store.getState()
+        // console.log('initialState', initialState);
     });
-    test('updates state correctly for unsuccessful guess', () => {
-      store.dispatch(guessWord(unsuccessfulGuess));
-      const newState = store.getState()
-      const expectedState = {
+   
+    test('add product into empty cart', () => {
+        store.dispatch(AddProductToCart(1, SIZE_S));
+        const newState = store.getState()
+        const expectedState = {
         ...initialState,
-        success: false,
-        guessedWords: [{
-          guessedWord: unsuccessfulGuess,
-          letterMatchCount: 3
-        }]
-      };
-      expect(newState).toEqual(expectedState);
+        shoppingCart: [{id:1, size:SIZE_S, amount:1}],
+        selectedProduct: {
+            productAdded: true,
+            productAddedID:1,
+            selectedProduct: null,
+            sizes: []
+        }};
+        expect(newState).toEqual(expectedState);
+        
     });
-    test('updates state correctly for successful guess', () => {
-      store.dispatch(guessWord(secretWord));
-      const newState = store.getState()
-      const expectedState = {
-        secretWord,
-        success: true,
-        guessedWords: [{
-          guessedWord: secretWord,
-          letterMatchCount: 5,
-        }],
-      };
-      expect(newState).toEqual(expectedState);
+    test('add product into empty cart and check, if the add button changes the state', () => {
+        store.dispatch(AddProductToCart(1, SIZE_S));
+        const newState = store.getState()
+        
+        setTimeout(() => {           
+            const expectedState = {
+                ...initialState,
+                shoppingCart: [{id:1, size:SIZE_S, amount:1}],
+                selectedProduct: {
+                    productAdded: false,
+                    productAddedID: -1,
+                    selectedProduct: null,
+                    sizes: []
+                }};
+                expect(newState).toEqual(expectedState);
+        }, 3000);
     });
-  });
-  describe('some guessed words', () => {
-    const guessedWords = [ { guessedWord: 'agile', letterMatchCount: 1 } ];
-    const initialState = { guessedWords, secretWord }
+});  
+ 
+describe('AddProductToCart action dispatcher', () => {
     let store;
+    let initialState;
+    const shoppingCart = [{id:2, size:SIZE_S, amount:3}];
     beforeEach(() => {
-      store = storeFactory(initialState);
-    })
-    test('updates state correctly for unsuccessful guess', () => {
-      store.dispatch(guessWord(unsuccessfulGuess));
-      const newState = store.getState();
-      const expectedState = {
-        secretWord,
-        success: false,
-        guessedWords: [...guessedWords, { guessedWord: unsuccessfulGuess, letterMatchCount: 3 }]
-      };
-      expect(newState).toEqual(expectedState);
+        store = storeFactory({shoppingCart});
+        initialState = store.getState()
+        //console.log('initialState', initialState);
     });
-    test('updates state correctly for successful guess', () => {
-      store.dispatch(guessWord(secretWord));
-      const newState = store.getState();
-      const expectedState = {
-        secretWord,
-        success: true,
-        guessedWords: [...guessedWords,
-          { guessedWord: secretWord, letterMatchCount: 5 }]
-      };
-      expect(newState).toEqual(expectedState);
+   
+    test('add product to not empty cart', () => {
+        store.dispatch(AddProductToCart(1, SIZE_S));
+        const newState = store.getState()
+        const expectedState = {
+        ...initialState,
+        shoppingCart: [...shoppingCart, {id:1, size:SIZE_S, amount:1}],
+        selectedProduct: {
+            productAdded: true,
+            productAddedID:1,
+            selectedProduct: null,
+            sizes: []
+        }};
+        expect(newState).toEqual(expectedState);
     });
-  });
-});
+});  
+ 
